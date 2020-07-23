@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$1" = "-d" ] || [ "$1" = "--debug" ];
+then
+    flutter build web --target="lib/main_web_dev.dart"
+else
+    flutter build web -t lib/main_web.dart
+fi
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$1" = "-d" ] || [ "$1" = "--debug" ];
+then
+    flutter run -d chrome --target="lib/main_web_dev.dart"
+else
+    flutter run -d chrome -t lib/main_web.dart
+fi
+
