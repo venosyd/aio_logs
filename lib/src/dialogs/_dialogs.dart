@@ -4,3 +4,5 @@
 /// sergio lisan <sels@venosyd.com>
 ///
 library aio.logs.dialogs;
+
+export 'logdialog.dart';

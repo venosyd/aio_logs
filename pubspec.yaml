@@ -20,16 +20,8 @@ dependencies:
   universal_io: ^1.0.1
   yaml: ^2.2.1
   aio_flutter:
+    # path: ../aio_flutter
     git: git@github.com:venosyd/aio_flutter.git
-
-dev_dependencies:
-  flutter_launcher_icons: "^0.7.5"
-
-flutter_icons:
-  android: true
-  ios: true
-  image_path_android: "assets/icons/android.png"
-  image_path_ios: "assets/icons/ios.png"
 
 flutter:
   uses-material-design: true

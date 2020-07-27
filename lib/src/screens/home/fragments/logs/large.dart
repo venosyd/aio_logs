@@ -35,121 +35,96 @@ class __LargeFragmentState extends State<_LargeFragment> with _Logics {
   Widget build(BuildContext context) => FutureBuilder<List<Log>>(
         future: logs(context, _queryctrl, namespace, type),
         builder: (_, snap) => snap.hasData
-            ? Stack(
+            ? Column(
                 children: [
-                  //
-
                   if (snap.data.isNotEmpty)
-                    //
-                    Positioned.fill(
-                      child: Wrap(
-                        children: [
-                          for (final log in snap.data)
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                //
-                                Text(
-                                  log.timestampDT,
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14,
+                    UxDataTable(
+                      columns: <UxDataColumn>[
+                        //
+                        UxDataColumn(
+                          label: Text('Timestamp',
+                              style: TextStyle(color: color(widget.type))),
+                        ),
+                        //
+                        UxDataColumn(
+                          label: Text('Escopo',
+                              style: TextStyle(color: color(widget.type))),
+                        ),
+                        //
+                        UxDataColumn(
+                          label: Text('Módulo',
+                              style: TextStyle(color: color(widget.type))),
+                        ),
+                        //
+                        UxDataColumn(
+                          label: Text('Título',
+                              style: TextStyle(color: color(widget.type))),
+                        ),
+                        //
+                        UxDataColumn(
+                          label: Text('Usuário',
+                              style: TextStyle(color: color(widget.type))),
+                        ),
+                        //
+                        UxDataColumn(
+                          label: Text('Detalhes',
+                              style: TextStyle(color: color(widget.type))),
+                        ),
+                        //
+                        const UxDataColumn(label: Text(' ')),
+                      ],
+                      rows: <UxDataRow>[
+                        for (final log in snap.data)
+                          UxDataRow(
+                            cells: <UxDataCell>[
+                              UxDataCell(Text(log.timestampDT)),
+                              UxDataCell(Text(log.namespace ?? '')),
+                              UxDataCell(Text(log.module ?? '')),
+                              UxDataCell(Text(log.title ?? '')),
+                              UxDataCell(Text(log.user ?? '')),
+                              UxDataCell(Text(_shrink(log.details))),
+                              UxDataCell(
+                                FlatButton(
+                                  onPressed: () => showDialog<LogDialog>(
+                                    context: context,
+                                    builder: (_) => LogDialog(log),
                                   ),
-                                ),
-                                //
-                                const SizedBox(height: 8),
-                                //
-                                _TitleDefinition(
-                                  'Namespace',
-                                  log.namespace ?? '',
-                                ),
-                                //
-                                const SizedBox(height: 8),
-                                //
-                                _TitleDefinition(
-                                  'Título',
-                                  log.title ?? '',
-                                ),
-                                //
-                                const SizedBox(height: 8),
-                                //
-                                _TitleDefinition(
-                                  'Módulo',
-                                  log.module ?? '',
-                                ),
-                                //
-                                const SizedBox(height: 8),
-                                //
-                                _TitleDefinition(
-                                  'Usuário',
-                                  log.user ?? '',
-                                ),
-                                //
-                                const SizedBox(height: 32),
-                                //
-                                Text(
-                                  log.details ?? '',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 12,
+                                  child: const FaIcon(
+                                    FontAwesomeIcons.solidEdit,
+                                    color: Colors.grey,
+                                    size: 16,
                                   ),
-                                ),
-                              ],
-                            )
-                                .Width(350)
-                                .Padding(const EdgeInsets.all(24))
-                                .Colored(color(widget.type))
-                                .Rounded(
-                                    const BorderRadius.all(Radius.circular(8)))
-                                .Margin(const EdgeInsets.all(16)),
-                          //
-                          const SizedBox(width: 600, height: 80),
-                        ],
-                      ).Centered().Scrollable().Sizedbox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height - 120,
+                                ).Clickable(),
+                              ),
+                            ],
                           ),
-                    ),
+                      ],
+                    ).Scrollable().Expanded(),
 
                   //
                   if (snap.data.isNotEmpty)
-                    //
-                    Positioned(
-                      bottom: 0,
-                      left: 0,
-                      width: MediaQuery.of(context).size.width,
-                      height: 72,
-                      child: RoundedTextField(
-                        text: 'Busca',
-                        controller: _queryctrl,
-                        onchanged: (_) => setState(() {}),
-                      )
-                          .Padding(const EdgeInsets.all(16))
-                          .Sizedbox(width: 300, height: 72)
-                          .Centered()
-                          .Colored(Colors.white.withAlpha(120))
-                          .Blur()
-                          .Rounded(const BorderRadius.only(
-                            topLeft: Radius.elliptical(64, 12),
-                            topRight: Radius.elliptical(64, 12),
-                          )),
-                    ),
+                    RoundedTextField(
+                      text: 'Busca',
+                      controller: _queryctrl,
+                      onchanged: (_) => setState(() {}),
+                    )
+                        .Padding(const EdgeInsets.all(16))
+                        .Width(400)
+                        .Centered()
+                        .Height(72),
 
                   //
                   if (snap.data.isEmpty)
-                    Positioned.fill(
-                      child: const Text(
-                        'Nenhum log nessa categoria ainda',
-                        style: TextStyle(
-                          color: Colors.grey,
-                          fontSize: 16,
-                          fontFamily: 'Open Sans Light',
-                        ),
-                      ).Centered().Sizedbox(
-                            width: MediaQuery.of(context).size.width,
-                            height: MediaQuery.of(context).size.height - 120,
-                          ),
-                    ),
+                    const Text(
+                      'Nenhum log nessa categoria ainda',
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16,
+                        fontFamily: 'Open Sans Light',
+                      ),
+                    ) //
+                        .Centered()
+                        .Height(MediaQuery.of(context).size.height - 120),
                 ],
               )
             : const CircularLoader(),

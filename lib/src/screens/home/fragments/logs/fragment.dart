@@ -8,9 +8,11 @@ library aio.logs.home.fragment.logs;
 import 'package:aio_dart/aio_dart.dart';
 import 'package:aio_flutter/aio_flutter.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../app.dart';
+import '../../../../dialogs/_dialogs.dart';
 
 part 'large.dart';
 part 'mobile.dart';
@@ -38,6 +40,13 @@ class LogsFragment extends StatelessWidget {
 mixin _Logics {
   ///
   String space(int times) => '\t' * times;
+
+  String _shrink(String value) {
+    value ??= '';
+    value = value.length > 30 ? '${value.substring(0, 27)}...' : value;
+
+    return value;
+  }
 
   ///
   Future<List<Log>> logs(
