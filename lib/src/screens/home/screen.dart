@@ -12,6 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../app.dart';
+import '../../dialogs/_dialogs_.dart';
 import '../../widgets/_widgets_.dart';
 import 'fragments/_fragments_.dart';
 

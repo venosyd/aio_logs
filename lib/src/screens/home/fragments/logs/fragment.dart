@@ -12,7 +12,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import '../../../../app.dart';
-import '../../../../dialogs/_dialogs.dart';
+import '../../../../dialogs/_dialogs_.dart';
 
 part 'large.dart';
 part 'mobile.dart';
@@ -37,13 +37,34 @@ class LogsFragment extends StatelessWidget {
 }
 
 ///
+class _TableHeader extends StatelessWidget with _Logics {
+  ///
+  const _TableHeader(this.text, this.type);
+
+  ///
+  final String text;
+
+  ///
+  final int type;
+
+  @override
+  Widget build(BuildContext context) => Text(
+        text,
+        style: TextStyle(
+          color: color(type),
+          fontWeight: FontWeight.bold,
+        ),
+      );
+}
+
+///
 mixin _Logics {
   ///
   String space(int times) => '\t' * times;
 
   String _shrink(String value) {
     value ??= '';
-    value = value.length > 30 ? '${value.substring(0, 27)}...' : value;
+    value = value.length > 50 ? '${value.substring(0, 47)}...' : value;
 
     return value;
   }
@@ -81,36 +102,4 @@ mixin _Logics {
 
     return Colors.grey;
   }
-}
-
-///
-class _TitleDefinition extends StatelessWidget {
-  ///
-  const _TitleDefinition(this.title, this.text);
-
-  ///
-  final String title;
-
-  ///
-  final String text;
-
-  @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
-          ).Width(100),
-          Text(
-            text,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 12,
-            ),
-          ).Expanded(),
-        ],
-      );
 }

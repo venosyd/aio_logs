@@ -19,41 +19,87 @@ class LogDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => BasicDialog(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 4),
         color: color(log.type),
-        width: 500,
+        width: 600,
         height: 400,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             //
+            //
             if (log.title != null && log.title.isNotEmpty)
-              _Header(title: 'Título', info: log.title) //
-                  .Centered()
-                  .Height(64),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  //
+                  const _Texto('Título', bold: true).Width(80),
+                  _Texto(log.title)
+                      .Padding(const EdgeInsets.symmetric(horizontal: 12))
+                      .Expanded(),
+                ],
+              ).Height(36),
+            //
             //
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _Header(title: 'Timestamp', info: log.timestampDT),
-                _Header(title: 'Escopo', info: log.namespace ?? ''),
+                //
+                const _Texto('Timestamp', bold: true).Width(80),
+                _Texto(log.timestampDT)
+                    .Padding(const EdgeInsets.symmetric(horizontal: 12))
+                    .Expanded(),
+                //
+                const _Texto('Escopo', bold: true).Width(80),
+                _Texto(log.namespace ?? '')
+                    .Padding(const EdgeInsets.symmetric(horizontal: 12))
+                    .Expanded(),
               ],
-            ) //
-                .Centered()
-                .Height(64),
+            ).Height(36),
+
+            //
             //
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _Header(title: 'Módulo', info: log.module ?? ''),
-                _Header(title: 'Usuário', info: log.user ?? ''),
+                //
+                const _Texto('Módulo', bold: true).Width(80),
+                _Texto(log.module ?? '')
+                    .Padding(const EdgeInsets.symmetric(horizontal: 12))
+                    .Expanded(),
+                //
+                const _Texto('Usuário', bold: true).Width(80),
+                _Texto(log.user ?? '')
+                    .Padding(const EdgeInsets.symmetric(horizontal: 12))
+                    .Expanded(),
               ],
-            ) //
-                .Centered()
-                .Height(64),
+            ).Height(36),
+            //
+            //
+            const SizedBox(height: 12),
+            //
             //
             _Texto(log.details) //
                 .Scrollable()
+                .Padding(const EdgeInsets.all(12))
+                .Colored(Colors.black.withAlpha(25))
+                .Rounded(const BorderRadius.all(Radius.circular(16)))
                 .Expanded(),
+            //
+            //
+            const SizedBox(height: 12),
+            //
+            //
+            FlatButton(
+              shape: const StadiumBorder(),
+              onPressed: () => Navigator.pop(context),
+              child: const Text('OK',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 14,
+                  )),
+            ).Height(36),
           ],
         ),
       );
@@ -85,36 +131,12 @@ class _Texto extends StatelessWidget {
   final bool bold;
 
   @override
-  Widget build(BuildContext context) => Text(
+  Widget build(BuildContext context) => SelectableText(
         texto,
         style: TextStyle(
           color: Colors.white,
           fontWeight: bold ? FontWeight.bold : FontWeight.normal,
           fontSize: 12,
         ),
-      );
-}
-
-///
-class _Header extends StatelessWidget {
-  ///
-  const _Header({this.title, this.info});
-
-  ///
-  final String title;
-
-  ///
-  final String info;
-
-  @override
-  Widget build(BuildContext context) => Row(
-        children: [
-          //
-          _Texto(title, bold: true).Width(80),
-          //
-          _Texto(info)
-              .Padding(const EdgeInsets.symmetric(horizontal: 12))
-              .Expanded(),
-        ],
       );
 }

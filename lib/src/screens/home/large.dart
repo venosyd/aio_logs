@@ -35,6 +35,26 @@ class __LargeScreenState extends State<_LargeScreen> with _Logics {
                 builder: (_, snap) => snap.hasData
                     ? Row(
                         children: [
+                          //
+                          FlatButton(
+                            shape: const StadiumBorder(),
+                            onPressed: () => showDialog<EscoposDialog>(
+                              context: context,
+                              builder: (_) => EscoposDialog(
+                                () => setState(() {}),
+                              ),
+                            ),
+                            child: const Text(
+                              'Escopos',
+                              style: TextStyle(
+                                color: Color(0xFF424242),
+                                fontSize: 11,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ).Margin(const EdgeInsets.all(8)),
+
+                          //
                           for (final namespace in snap.data)
                             FlatButton(
                               shape: const StadiumBorder(),

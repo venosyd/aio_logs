@@ -5,4 +5,5 @@
 ///
 library aio.logs.dialogs;
 
+export 'escopos.dart';
 export 'logdialog.dart';

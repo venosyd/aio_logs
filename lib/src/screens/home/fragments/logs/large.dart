@@ -40,37 +40,24 @@ class __LargeFragmentState extends State<_LargeFragment> with _Logics {
                   if (snap.data.isNotEmpty)
                     UxDataTable(
                       columns: <UxDataColumn>[
-                        //
                         UxDataColumn(
-                          label: Text('Timestamp',
-                              style: TextStyle(color: color(widget.type))),
+                          label: _TableHeader('Timestamp', widget.type),
                         ),
-                        //
                         UxDataColumn(
-                          label: Text('Escopo',
-                              style: TextStyle(color: color(widget.type))),
+                          label: _TableHeader('Escopo', widget.type),
                         ),
-                        //
                         UxDataColumn(
-                          label: Text('Módulo',
-                              style: TextStyle(color: color(widget.type))),
+                          label: _TableHeader('Módulo', widget.type),
                         ),
-                        //
                         UxDataColumn(
-                          label: Text('Título',
-                              style: TextStyle(color: color(widget.type))),
+                          label: _TableHeader('Título', widget.type),
                         ),
-                        //
                         UxDataColumn(
-                          label: Text('Usuário',
-                              style: TextStyle(color: color(widget.type))),
+                          label: _TableHeader('Usuário', widget.type),
                         ),
-                        //
                         UxDataColumn(
-                          label: Text('Detalhes',
-                              style: TextStyle(color: color(widget.type))),
+                          label: _TableHeader('Detalhes', widget.type),
                         ),
-                        //
                         const UxDataColumn(label: Text(' ')),
                       ],
                       rows: <UxDataRow>[
@@ -90,7 +77,7 @@ class __LargeFragmentState extends State<_LargeFragment> with _Logics {
                                     builder: (_) => LogDialog(log),
                                   ),
                                   child: const FaIcon(
-                                    FontAwesomeIcons.solidEdit,
+                                    FontAwesomeIcons.infoCircle,
                                     color: Colors.grey,
                                     size: 16,
                                   ),
@@ -99,7 +86,9 @@ class __LargeFragmentState extends State<_LargeFragment> with _Logics {
                             ],
                           ),
                       ],
-                    ).Scrollable().Expanded(),
+                    ) //
+                        .Scrollable()
+                        .Expanded(),
 
                   //
                   if (snap.data.isNotEmpty)
